@@ -1,15 +1,24 @@
-import {Configuration, OpenAIApi} from 'openai'
-import dotenv from 'dotenv'
-dotenv.config();
-
-const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API-KEY
-})
-
-const openai = new OpenAIApi(configuration)
+import openai from "./config/open-ai.js";
+import readlineSync from "readline-sync";
+import colors from 'colors';
 
 async function main() {
-    const chatCompletion = await openai.createChatCompletion();
+    console.log(colors.bold.green('Welcome to Alejandros ChatBot'));
+    console.log(colors.bold.green('You can start chatting now'));
+
+    while (true) {
+        const userInput = readlineSync.question(colors.yellow('You: '));
+
+        try {
+            //Call the API with user input
+
+            if (userInput.toLowerCase() === 'exit') {
+                return;
+            }
+        } catch (error) {
+            console.error(colors.red(error));
+        }
+    }
 }
 
 main();
